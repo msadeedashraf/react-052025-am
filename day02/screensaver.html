@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 11 Screensaver</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+        }
+
+        /* Background animation */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(90deg, #2a5298, #1e3c72);
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Time and Date */
+        .time-display {
+            font-size: 6em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .date-display {
+            font-size: 2em;
+            font-weight: 300;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Grid Layout for Weather, News, and Stock */
+.info-sections {
+    display: flex;
+    justify-content: space-between; /* Add spacing between sections */
+    align-items: stretch; /* Ensure boxes stretch equally */
+    width: 80%;
+    max-width: 1200px;
+    gap: 10px; /* Optional: Add spacing between the sections */
+}
+
+.info-box {
+    flex: 1; /* Ensures equal size for all boxes */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info-box h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #ffffffcc;
+}
+
+.info-box p {
+    font-size: 1.2em;
+    color: #ffffffdd;
+}
+
+.info-box:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="background"></div>
+
+    <!-- Time and Date Display -->
+    <div class="time-display" id="time-display"></div>
+    <div class="date-display" id="date-display"></div>
+
+    <!-- Weather, News, Stock Info -->
+    <div class="info-sections">
+        <div class="info-box" id="weather-box">
+            <h2>Weather</h2>
+            <p id="weather-info">Loading...</p>
+        </div>
+        <div class="info-box" id="news-box">
+            <h2>News</h2>
+            <p id="news-info">Loading...</p>
+        </div>
+        <div class="info-box" id="stock-box">
+            <h2>Stock</h2>
+            <p id="stock-info">Loading...</p>
+        </div>
+    </div>
+
+    <script>
+        // Update Time and Date
+        function updateDateTime() {
+            const timeDisplay = document.getElementById("time-display");
+            const dateDisplay = document.getElementById("date-display");
+
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+            timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+            dateDisplay.textContent = now.toLocaleDateString(undefined, options);
+        }
+
+        // Fake Data for Weather, News, and Stock
+        function updateWeather() {
+            document.getElementById("weather-info").textContent = "Sunny, 25°C";
+        }
+
+        function updateNews() {
+            document.getElementById("news-info").textContent = "Breaking News: Screensaver design trends!";
+        }
+
+        function updateStock() {
+            document.getElementById("stock-info").textContent = "NASDAQ: 14,500 (+0.5%)";
+        }
+
+        // Initialize Data Updates
+        setInterval(updateDateTime, 1000); // Time and Date
+        setInterval(updateWeather, 5000); // Weather (Fake data every 5s)
+        setInterval(updateNews, 7000);    // News (Fake data every 7s)
+        setInterval(updateStock, 9000);   // Stock (Fake data every 9s)
+
+        // Initial Updates
+        updateDateTime();
+        updateWeather();
+        updateNews();
+        updateStock();
+    </script>
+
+</body>
+</html>
