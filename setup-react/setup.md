@@ -17,6 +17,11 @@
 
 - after installing go to browser's settings ---extension ---select react-dev-tools ------check Allow access to file URLs
 
+### VS Code Extension 
+
+VS Code ES7+ React/Redux/React-Native/JS snippets
+JavaScript and React/Redux snippets in ES7+ with Babel plugin features for VS Code
+
 ### React Sandbox
 --react.new in the url--
 https://codesandbox.io/p/sandbox/react-new?utm_source=dotnew
