@@ -42,3 +42,5 @@
 
 [Link](https://www.w3schools.com/react/react_components.asp)
 
+### React Props
+[Link](https://www.w3schools.com/react/react_props.asp)
