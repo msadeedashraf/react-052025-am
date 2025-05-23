@@ -44,3 +44,6 @@
 
 ### React Props
 [Link](https://www.w3schools.com/react/react_props.asp)
+
+### Arrow Functions
+[Link](https://www.w3schools.com/js/js_arrow_function.asp)
