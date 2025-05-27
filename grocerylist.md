@@ -63,14 +63,17 @@ const Content = () => {
            <li className="item" >
             <input type="checkbox" checked='true' />
             <label>Bread</label>
+            <button>Delete</button>
           </li>
           <li className="item" >
             <input type="checkbox" checked='false' />
             <label>Apples</label>
+            <button>Delete</button>
           </li>
           <li className="item" >
             <input type="checkbox" checked='true' />
             <label>Oranges</label>
+            <button>Delete</button>
           </li>
         
       </ul>
@@ -230,5 +233,84 @@ ul li::before {
 }
 ```
 
+### Step # 5 
+
+- Use the setState Hook to replace the static html using the map function. [map](https://www.w3schools.com/jsref/jsref_map.asp)
+- use the react-icon package to replace the delete button. [react-icons](https://www.npmjs.com/package/react-icons)
+
+```
+>npm install react-icons --save
+```
+
+
+
+```
+import React from "react";
+import { useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
+
+
+const Content = () => {
+  const [items, setItems] = useState([
+    {
+      id: 1,
+      checked: false,
+      item: "Oranges",
+    },
+    {
+      id: 2,
+      checked: false,
+      item: "Apples",
+    },
+    {
+      id: 3,
+      checked: true,
+      item: "Eggs",
+    },
+      {
+      id: 4,
+      checked: true,
+      item: "Bananas",
+    },
+{
+      id: 5,
+      checked: true,
+      item: "Kiwi",
+    },
+
+
+  ]);
+
+
+  return (
+    <main>
+      <ul>
+
+
+        {items.map((item) => (
+          <li className="item" >
+            <input type="checkbox" checked={item.checked} />
+            <label>{item.item}</label>
+           <FaTrashAlt role="button"/>
+          </li>
+        ))} 
+        
+      </ul>
+    </main>
+  );
+};
+
+export default Content;
+
+```
+
+### Step # 6 
+### Step # 7 
+### Step # 8 
+### Step # 9 
+### Step # 10 
+### Step # 11 
+### Step # 12 
+### Step # 13 
 
 
