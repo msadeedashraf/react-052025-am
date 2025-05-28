@@ -337,7 +337,7 @@ const Content = () => {
     },
   ]);
 
-<mark>
+// 🆕 New function to toggle checkbox status
   const handleChange = (id) => {
     //console.log(`Key : ${id}`);
     const listItems = items.map((item) => item.id === id ? {...item, checked : !item.checked} : item )
@@ -345,7 +345,7 @@ const Content = () => {
     setItems(listItems)
 
   };
-</mark>
+
   return (
     <main>
       <ul>
