@@ -346,6 +346,16 @@ const Content = () => {
 
   };
 
+```diff
++ const handleChange = (id) => {
++   const listItems = items.map((item) =>
++     item.id === id ? { ...item, checked: !item.checked } : item
++   );
++   setItems(listItems);
++ };
+
+
+
   return (
     <main>
       <ul>
