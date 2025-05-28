@@ -347,12 +347,6 @@ const Content = () => {
   };
 
 
-+ const handleChange = (id) => {
-+   const listItems = items.map((item) =>
-+     item.id === id ? { ...item, checked: !item.checked } : item
-+   );
-+   setItems(listItems);
-+ };
 
 
 
@@ -381,7 +375,71 @@ export default Content;
 ```
 
 ### Step # 7 
+- Implement the storage
+  
+```
+ const handleChange = (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.map((item) => item.id === id ? {...item, checked : !item.checked} : item )
+    //console.log()
+    setItems(listItems)
+    localStorage.setItem('myshopinglist', JSON.stringify(listItems))
+
+  };
+```
+- Apply the style line through on label
+
+```
+ <label style={(item.checked ? {textDecoration:'line-through'} : null)} >{item.item}</label>
+```
+
 ### Step # 8 
+- Get the delete button to remove the items
+  
+```
+ const handleDelete = (id) => {
+ //console.log(`Key : ${id}`);
+ const listItems = items.filter( (item) => item.id !== id   )
+
+ setItems(listItems);
+ localStorage.setItem('myshopinglist', JSON.stringify(listItems))
+  }
+```
+
+```
+ <FaTrashAlt role="button"  onClick={() => handleDelete(item.id)} />
+```
+
+- Implement the Empty List message
+```
+ <main>
+      {items.length ? (
+        <ul>
+          {items.map((item) => (
+            <li className="item" key={item.id}>
+              <input
+                type="checkbox"
+                checked={item.checked}
+                onChange={() => handleChange(item.id)}
+              />
+
+              <label
+                style={item.checked ? { textDecoration: "line-through" } : null}
+              >
+                {item.item}
+              </label>
+              <FaTrashAlt role="button" onClick={() => handleDelete(item.id)} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Your list is empty</p>
+      )}
+    </main>
+```
+
+
+
 ### Step # 9 
 ### Step # 10 
 ### Step # 11 

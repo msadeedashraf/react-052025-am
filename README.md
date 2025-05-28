@@ -47,3 +47,30 @@
 
 ### Arrow Functions
 [Link](https://www.w3schools.com/js/js_arrow_function.asp)
+
+### Spread Operator
+
+- React ES6 Spread Operator
+[Spread Operator](https://www.w3schools.com/react/react_es6_spread.asp)
+
+- Spread syntax (...)
+[Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+
+### JavaScript Ternary Operator
+
+[JavaScript Ternary Operator](https://www.geeksforgeeks.org/javascript-ternary-operator/)
+
+### JavaScript Array filter()
+
+[JavaScript Array filter()](https://www.w3schools.com/jsref/jsref_filter.asp)
+
+[Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+### Prop Drilling
+
+- What is prop drilling in React?
+[prop drilling](https://dev.to/codeofrelevancy/what-is-prop-drilling-in-react-3kol)
+
+[Prop Drilling in React Explained with Examples](https://www.freecodecamp.org/news/prop-drilling-in-react-explained-with-examples/)
+
+[Prop Drilling in React](https://medium.com/@omkarbhavare2406/prop-drilling-in-react-8819c609c376)

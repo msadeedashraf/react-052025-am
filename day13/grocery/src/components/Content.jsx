@@ -34,28 +34,46 @@ const Content = () => {
 
   const handleChange = (id) => {
     //console.log(`Key : ${id}`);
-    const listItems = items.map((item) => item.id === id ? {...item, checked : !item.checked} : item )
+    const listItems = items.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
     //console.log()
-    setItems(listItems)
+    setItems(listItems);
+    localStorage.setItem("myshopinglist", JSON.stringify(listItems));
+  };
 
+  const handleDelete = (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.filter((item) => item.id !== id);
+
+    setItems(listItems);
+    localStorage.setItem("myshopinglist", JSON.stringify(listItems));
   };
 
   return (
     <main>
-      <ul>
-        {items.map((item) => (
-          <li className="item" key={item.id}>
-            <input
-              type="checkbox"
-              checked={item.checked}
-              onChange={() => handleChange(item.id)}
-            />
+      {items.length ? (
+        <ul>
+          {items.map((item) => (
+            <li className="item" key={item.id}>
+              <input
+                type="checkbox"
+                checked={item.checked}
+                onChange={() => handleChange(item.id)}
+              />
 
-            <label>{item.item}</label>
-            <FaTrashAlt role="button" />
-          </li>
-        ))}
-      </ul>
+              <label
+                style={item.checked ? { textDecoration: "line-through" } : null}
+              >
+                {item.item}
+              </label>
+              <FaTrashAlt role="button" onClick={() => handleDelete(item.id)} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Your list is empty</p>
+      )}
     </main>
   );
 };
