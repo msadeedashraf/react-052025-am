@@ -305,6 +305,71 @@ export default Content;
 ```
 
 ### Step # 6 
+ - To implement the check uncheck 
+
+```
+const Content = () => {
+  const [items, setItems] = useState([
+    {
+      id: 1,
+      checked: false,
+      item: "Oranges",
+    },
+    {
+      id: 2,
+      checked: false,
+      item: "Apples",
+    },
+    {
+      id: 3,
+      checked: true,
+      item: "Eggs",
+    },
+    {
+      id: 4,
+      checked: false,
+      item: "Bananas",
+    },
+    {
+      id: 5,
+      checked: true,
+      item: "Kiwi",
+    },
+  ]);
+
+<mark>
+  const handleChange = (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.map((item) => item.id === id ? {...item, checked : !item.checked} : item )
+    //console.log()
+    setItems(listItems)
+
+  };
+</mark>
+  return (
+    <main>
+      <ul>
+        {items.map((item) => (
+          <li className="item" key={item.id}>
+            <input
+              type="checkbox"
+              checked={item.checked}
+              onChange={() => handleChange(item.id)}
+            />
+
+            <label>{item.item}</label>
+            <FaTrashAlt role="button" />
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+};
+
+export default Content;
+
+```
+
 ### Step # 7 
 ### Step # 8 
 ### Step # 9 
