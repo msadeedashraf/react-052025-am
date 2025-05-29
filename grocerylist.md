@@ -660,7 +660,7 @@ export default Content;
 
 ### Step # 12 
 - Do the same for creating the LineItem Component.
-- Create a LineItem Component by bringing the code from ItemList.jsx '<li> ... </li>'
+- Create a LineItem Component by bringing the code from ItemList.jsx <li> ... </li>
 - Make sure the prop are passed accordingly {item, handleChange, handleDelete}
 
 LineItem.jsx
