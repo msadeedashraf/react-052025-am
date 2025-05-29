@@ -596,10 +596,125 @@ const Footer = ({len}) => {
 export default Footer
 
 ```
-
-
 ### Step # 11 
+- Refactor the code by creating components.
+- Create a ItemList Component by bringing the code from Content.jsx '<ul> ... </ul>'
+
+```
+import React from 'react'
+import { FaTrashAlt } from "react-icons/fa";
+const ItemList = ({items, handleChange, handleDelete}) => {
+  return (
+            <ul>
+          {items.map((item) => (
+            <li className="item" key={item.id}>
+              <input
+                type="checkbox"
+                checked={item.checked}
+                onChange={() => handleChange(item.id)}
+              />
+
+              <label
+                style={item.checked ? { textDecoration: "line-through" } : null}
+              >
+                {item.item}
+              </label>
+              <FaTrashAlt role="button" onClick={() => handleDelete(item.id)} />
+            </li>
+          ))}
+        </ul>
+  )
+}
+
+export default ItemList
+```
+
+- Import the ItemList component in the Content Component.
+
+Content.jsx
+```
+import ItemList from "./ItemList";
+//https://www.npmjs.com/package/react-icons
+
+const Content = ({ items, handleChange, handleDelete }) => {
+  return (
+    <main>
+      {items.length ? (
+        <ItemList
+          items={items}
+          handleChange={handleChange}
+          handleDelete={handleDelete}
+        />
+      ) : (
+        <p>Your list is empty</p>
+      )}
+    </main>
+  );
+};
+
+export default Content;
+
+```
+
+- Test the app and I should function as previous.
+
 ### Step # 12 
+- Do the same for creating the LineItem Component.
+- Create a LineItem Component by bringing the code from ItemList.jsx '<li> ... </li>'
+- Make sure the prop are passed accordingly {item, handleChange, handleDelete}
+
+LineItem.jsx
+```
+import React from 'react'
+import { FaTrashAlt } from "react-icons/fa";
+
+const LineItem = ({item, handleChange, handleDelete}) => {
+  return (
+     <li className="item" key={item.id}>
+              <input
+                type="checkbox"
+                checked={item.checked}
+                onChange={() => handleChange(item.id)}
+              />
+
+              <label
+                style={item.checked ? { textDecoration: "line-through" } : null}
+              >
+                {item.item}
+              </label>
+              <FaTrashAlt role="button" onClick={() => handleDelete(item.id)} />
+            </li>
+  )
+}
+
+export default LineItem
+```
+
+- Import the LineItem component in the ItemList Component.
+
+ItemList.jsx
+```
+import React from 'react'
+
+import LineItem from './LineItem';
+const ItemList = ({items, handleChange, handleDelete}) => {
+  return (
+            <ul>
+          {items.map((item) => (
+           <LineItem 
+            item={item} 
+            handleChange={handleChange} 
+            handleDelete={handleDelete} />
+          ))}
+        </ul>
+  )
+}
+
+export default ItemList
+
+```
+
+
 ### Step # 13 
 
 
