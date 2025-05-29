@@ -438,10 +438,166 @@ export default Content;
     </main>
 ```
 
-
-
 ### Step # 9 
+- Prop Drilling
+
+- Move the items, handleChange, handleDelete into the App.jsx from Content.jsx and pass them back to Content.js as properties.
+
+App.jsx
+```
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Content from "./components/Content";
+import { useState } from "react";
+function App() {
+  const [items, setItems] = useState([
+    {
+      id: 1,
+      checked: false,
+      item: "Oranges",
+    },
+    {
+      id: 2,
+      checked: false,
+      item: "Apples",
+    },
+    {
+      id: 3,
+      checked: true,
+      item: "Eggs",
+    },
+    {
+      id: 4,
+      checked: false,
+      item: "Bananas",
+    },
+    {
+      id: 5,
+      checked: true,
+      item: "Kiwi",
+    },
+  ]);
+
+   const handleChange = (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    //console.log()
+    setItems(listItems);
+    localStorage.setItem("myshopinglist", JSON.stringify(listItems));
+  };
+
+  const handleDelete = (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.filter((item) => item.id !== id);
+
+    setItems(listItems);
+    localStorage.setItem("myshopinglist", JSON.stringify(listItems));
+  };
+
+
+  return (
+    <>
+      <div className="App">
+        <Header title="Grocery List" />
+        <Content 
+          items={items} 
+          handleChange = {handleChange}
+          handleDelete = {handleDelete}
+          
+        />
+        <Footer />
+      </div>
+    </>
+  );
+}
+
+export default App;
+
+```
+
+Content.jsx
+```
+import { FaTrashAlt } from "react-icons/fa";
+//https://www.npmjs.com/package/react-icons
+
+const Content = ({items, handleChange, handleDelete}) => {
+ 
+
+ 
+  return (
+    <main>
+      {items.length ? (
+        <ul>
+          {items.map((item) => (
+            <li className="item" key={item.id}>
+              <input
+                type="checkbox"
+                checked={item.checked}
+                onChange={() => handleChange(item.id)}
+              />
+
+              <label
+                style={item.checked ? { textDecoration: "line-through" } : null}
+              >
+                {item.item}
+              </label>
+              <FaTrashAlt role="button" onClick={() => handleDelete(item.id)} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Your list is empty</p>
+      )}
+    </main>
+  );
+};
+
+export default Content;
+```
+
+
 ### Step # 10 
+
+- Pass the no of items into the Footer Component '<Footer len={items.length} />'
+
+App.jsx
+```
+ return (
+    <>
+      <div className="App">
+        <Header title="Grocery List" />
+        <Content 
+          items={items} 
+          handleChange = {handleChange}
+          handleDelete = {handleDelete}
+          
+        />
+        <Footer len={items.length} />
+      </div>
+    </>
+  );
+```
+
+Footer.jsx
+```
+import React from 'react'
+
+const Footer = ({len}) => {
+  
+  return (
+  <footer>
+    <p> {len}  { len<=1 ? "item" : "items"  } in the list </p>
+  </footer>
+  )
+}
+
+export default Footer
+
+```
+
+
 ### Step # 11 
 ### Step # 12 
 ### Step # 13 
