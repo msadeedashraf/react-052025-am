@@ -9,7 +9,6 @@
 > npm run dev
 ```
 
-
 ### Step # 2 
 
 - Create the three components Content, Header and Footer
@@ -701,7 +700,8 @@ const ItemList = ({items, handleChange, handleDelete}) => {
   return (
             <ul>
           {items.map((item) => (
-           <LineItem 
+           <LineItem
+            key={item.id}
             item={item} 
             handleChange={handleChange} 
             handleDelete={handleDelete} />
@@ -714,7 +714,7 @@ export default ItemList
 
 ```
 
-
 ### Step # 13 
+- Controlled Inputs
 
 
