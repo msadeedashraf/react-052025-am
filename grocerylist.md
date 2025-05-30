@@ -717,4 +717,78 @@ export default ItemList
 ### Step # 13 
 - Controlled Inputs
 
+- Remove the `key={item.id}`  from `<li className="item" key={item.id}>` in the LineItem Component
 
+```
+const LineItem = ({item, handleChange, handleDelete}) => {
+  return (
+     <li className="item">
+              <input
+                type="checkbox"
+                checked={item.checked}
+                onChange={() => handleChange(item.id)}
+              />
+
+              <label
+                style={item.checked ? { textDecoration: "line-through" } : null}
+              >
+                {item.item}
+              </label>
+              <FaTrashAlt role="button" onClick={() => handleDelete(item.id)} />
+            </li>
+  )
+}
+```
+
+### Step # 14
+
+- Create a AddItem component
+  
+```
+import React from 'react'
+import { FaPlus } from "react-icons/fa";
+const AddItem = () => {
+  return (
+    <form className='addForm'>
+
+        <label htmlFor="addItem"> Add Item</label>
+        <input type="text" autoFocus id='addItem' placeholder='Add Item' required />
+        <button type='submit'> <FaPlus></FaPlus></button>
+
+
+    </form>
+  )
+}
+
+export default AddItem
+
+```
+### Step # 15
+
+- Add the  `<AddItem/>` component in the app.jsx after the `<Header title="Grocery List" />`
+
+```
+<>
+      <div className="App">
+        <Header title="Grocery List" />
+        <AddItem/>
+        <Content 
+          items={items} 
+          handleChange = {handleChange}
+          handleDelete = {handleDelete}
+          
+        />
+        <Footer len={items.length} />
+      </div>
+    </>
+```
+
+
+
+
+
+### Step # 16 
+### Step # 17 
+### Step # 18 
+### Step # 19 
+### Step # 20 
