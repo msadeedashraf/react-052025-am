@@ -74,3 +74,12 @@
 [Prop Drilling in React Explained with Examples](https://www.freecodecamp.org/news/prop-drilling-in-react-explained-with-examples/)
 
 [Prop Drilling in React](https://medium.com/@omkarbhavare2406/prop-drilling-in-react-8819c609c376)
+
+
+### React Hooks
+
+#### useEffect Hook
+
+[React useEffect Hooks](https://www.w3schools.com/react/react_useeffect.asp)
+
+[How to Use React Hooks – useEffect, useState, and useContext Code Examples](https://www.freecodecamp.org/news/react-hooks-useeffect-usestate-and-usecontext/)
