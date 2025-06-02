@@ -29,5 +29,10 @@ Convert an existing HTML, CSS code into a react project and demonstrate using Co
 ### Assignment # 5
 Create a Footer Component and Pass a year Prop To it.
 
+### Final Project
 
+[Movie App](https://www.youtube.com/watch?v=G6D9cBaLViA&ab_channel=TechWithTim)
 
+[React Calculator](https://www.youtube.com/watch?v=DgRrrOt0Vr8&t=2s&pp=ygUgYmVnaW5uZXIgZnJpZW5kbHkgcmVhY3QgcHJvamVjdHM%3D)
+
+[Portfolio](https://www.youtube.com/watch?v=LGdPMf-SgBA&ab_channel=PedroTech)

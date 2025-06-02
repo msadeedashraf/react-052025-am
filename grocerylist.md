@@ -783,12 +783,277 @@ export default AddItem
     </>
 ```
 
-
-
-
-
 ### Step # 16 
+- Add the useState to hold the newItem to be added and create method to handle adding the new item into the list
+
+App.jsx  
+```
+... 
+const [newItem, setNewItem] = useState('');
+...
+
+const handleAdding = (e) => {
+    e.preventDefault();
+    console.log("Check Adding")
+    console.log(newItem);
+
+    if (!newItem) return;
+    addNewItem(newItem);
+    setNewItem('');
+
+  }
+
+//
+const addNewItem = (item) => {
+
+  const id = items.length ? items[items.length - 1].id+1 : 1;
+  const myNewItem = { id, checked:false, item };
+
+  const listItems = [...items, myNewItem];
+  setItems(listItems);
+  localStorage.setItem("myshopinglist", JSON.stringify(listItems));
+}
+
+return (
+    <>
+      <div className="App">
+        <Header title="Grocery List" />
+        <AddItem 
+            newItem={newItem}
+            setNewItem={setNewItem}
+            handleAdding={handleAdding} 
+        />
+        <Content 
+          items={items} 
+          handleChange = {handleChange}
+          handleDelete = {handleDelete}
+          
+        />
+        <Footer len={items.length} />
+      </div>
+    </>
+  );
+
+```
+
+- Update the AddItem component by passing the props `{newItem, setNewItem, handleAdding}` and ` onChange={(e)=> setNewItem(e.target.value)}` in the `<input onChange={(e)=> setNewItem(e.target.value)}/>`
+
+AddItem.jsx
+```
+import React from 'react'
+import {useRef} from 'react'
+import { FaPlus } from "react-icons/fa";
+const AddItem = ({newItem, setNewItem, handleAdding}) => {
+
+  const inputRef = useRef(null)
+  return (
+    <form className='addForm' onSubmit={handleAdding}>
+
+        <label htmlFor="addItem"> Add Item</label>
+        
+        <input 
+          type="text" 
+          ref={inputRef}
+          autoFocus 
+          id='addItem' 
+          placeholder='Add Item' 
+          required 
+          value={newItem}
+          onChange={(e)=> setNewItem(e.target.value)}
+        />
+        
+        
+        <button type='submit' onClick={()=> inputRef.current.focus()}  > <FaPlus></FaPlus></button>
+
+
+    </form>
+  )
+}
+
+export default AddItem
+
+```
+
+
 ### Step # 17 
+
+- Create a setAndSaveItems method 
+```
+const setAndSaveItems = (newItems) => {
+ setItems(newItems);
+  localStorage.setItem("myshopinglist", JSON.stringify(newItems));
+}
+```
+- and replace the ` setItems(listItems);  localStorage.setItem("myshopinglist", JSON.stringify(listItems));` with `setAndSaveItems(listItems);` in `addNewItem`, `handleChange` and `handleDelete` methods
+
+```
+ const handleChange = (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    //console.log()
+     setAndSaveItems(listItems);
+  };
+
+  const handleDelete = (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.filter((item) => item.id !== id);
+
+     setAndSaveItems(listItems);
+  };
+
+const addNewItem = (item) => {
+
+  const id = items.length ? items[items.length - 1].id+1 : 1;
+  const myNewItem = { id, checked:false, item };
+
+  const listItems = [...items, myNewItem];
+  
+  setAndSaveItems(listItems);
+ 
+}
+```
+
+
 ### Step # 18 
+
+- load the initial state of the items from the localstorage.
+
+```
+  const [items, setItems] = useState(JSON.parse(localStorage.getItem('myshopinglist')));
+
+```
+
 ### Step # 19 
+
+- Create a component Search
+
+components/Search.jsx
+```
+import React from 'react'
+
+const Search = () => {
+  return (
+     <form className='searchForm' onSubmit={(e) => e.preventDefault()}>
+            <label htmlFor='search'>Search</label>
+            <input
+                id='search'
+                type='text'
+                role='searchbox'
+                placeholder='Search Items'
+               
+            />
+        </form>
+  )
+}
+
+export default Search
+
+```
+
+- Import the Search Component in the App.jsx under the AddItem component
+- declare   `const[search, setSearch] = useState("");`
+
+App.jsx
+```
+...
+  const[search, setSearch] = useState("");
+...
+   <>
+      <div className="App">
+        <Header title="Grocery List" />
+        <AddItem 
+            newItem={newItem}
+            setNewItem={setNewItem}
+            handleAdding={handleAdding} 
+        />
+        <Search
+            search = {search}
+            setSearch = {setSearch}
+        />
+        <Content 
+          items={items} 
+          handleChange = {handleChange}
+          handleDelete = {handleDelete}
+          
+        />
+        <Footer len={items.length} />
+      </div>
+    </>
+```
+
+- Update the index.css  file
+```
+.searchForm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.25rem 0 0;
+  padding: 0 0.5rem 0.25rem;
+  border-bottom: 1px solid #eee;
+}
+
+.searchForm label {
+  position: absolute;
+  left: -99999px;
+}
+
+.searchForm input[type='text'] {
+  flex-grow: 1;
+  max-width: 100%;
+  min-height: 48px;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  outline: none;
+}
+
+```
+
 ### Step # 20 
+
+- Pass the setSearch into the Search component and apply the `onChange={ (e) =>  setSearch(e.target.value)}`
+
+Search.jsx
+```
+import React from 'react'
+
+const Search = ({ setSearch}) => {
+  return (
+     <form className='searchForm' onSubmit={(e) => e.preventDefault()}>
+            <label htmlFor='search'>Search</label>
+            <input
+                id='search'
+                type='text'
+                role='searchbox'
+                placeholder='Search Items'
+                onChange={ (e) =>  setSearch(e.target.value)}
+               
+            />
+        </form>
+  )
+}
+
+export default Search
+
+```
+
+- To filter the items replace items={items} with `items={items.filter( i => (i.item).toLowerCase().includes(search.toLowerCase()))  } ` in the Content component.
+
+App.jsx
+```
+
+        <Search
+            search = {search}
+            setSearch = {setSearch}
+        />
+        <Content 
+          //items={items.filter( i => (i.item).includes(search))  }  //Without checking the case
+          items={items.filter( i => (i.item).toLowerCase().includes(search.toLowerCase()))  } 
+          handleChange = {handleChange}
+          handleDelete = {handleDelete}
+          
+        />
+  
+```
