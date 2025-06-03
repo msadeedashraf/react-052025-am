@@ -1057,3 +1057,24 @@ App.jsx
         />
   
 ```
+
+### Step # 21
+
+- useEffect 
+
+```
+```
+
+
+### Step # 22 
+
+### Step # 23 
+
+### Step # 24 
+
+### Step # 25 
+
+### Step # 26 
+
+### Step # 27 
+
