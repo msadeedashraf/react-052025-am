@@ -1060,9 +1060,58 @@ App.jsx
 
 ### Step # 21
 
-- useEffect 
+- Introduce useEffect and no need for the `setAndSaveItems` function 
+
+`const setAndSaveItems = (newItems) => {
+ setItems(newItems);
+  localStorage.setItem("myshopinglist", JSON.stringify(newItems));
+}
+`
 
 ```
+
+const [items, setItems] = useState(JSON.parse(localStorage.getItem('myshopinglist')) || []);
+
+useEffect(
+  () => {
+     localStorage.setItem("myshopinglist", JSON.stringify(items));
+  }
+  ,[items]
+);
+
+```
+
+- replace this `setAndSaveItems(listItems)`  with  `setItems(listItems)`
+
+```
+ const handleChange = (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    //console.log()
+    setItems(listItems);
+  };
+
+  const handleDelete = (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.filter((item) => item.id !== id);
+
+     setItems(listItems);
+  };
+
+
+const addNewItem = (item) => {
+
+  const id = items.length ? items[items.length - 1].id+1 : 1;
+  const myNewItem = { id, checked:false, item };
+
+  const listItems = [...items, myNewItem];
+  
+   setItems(listItems);
+ 
+}
+
 ```
 
 
