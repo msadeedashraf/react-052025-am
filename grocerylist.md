@@ -1195,6 +1195,96 @@ useEffect(() => {
 
 ### Step # 24 
 
+- Create a API_URI variable `const API_URI = "http://localhost:3500/items";` and pass it into the response `const response = await fetch(API_URI);`
+
+- Declare `  const [fetchError, setFetchError] = useState(null);` to handle the error and wrap the Content component as following 
+
+```
+{fetchError && <p style={{color:"red"}} > {`Error: ${fetchError}`}</p> }          
+        { !fetchError && <Content
+          items={items.filter((i) =>
+            i.item.toLowerCase().includes(search.toLowerCase())
+          )}
+          handleChange={handleChange}
+          handleDelete={handleDelete}
+        />}
+
+```
+
+   
+App.jsx   
+```
+   ...
+   const [fetchError, setFetchError] = useState(null);
+   const API_URI = "http://localhost:3500/items";
+   ...
+
+    useEffect(() => {
+    console.log("load data");
+
+    const fetchItems = async () => {
+      console.log("printing testItems");
+
+      try {
+        const response = await fetch(API_URI);
+
+        if (!response.ok )  throw Error('Did not receive expected data')
+          
+        const listItems = await response.json();
+
+        console.log("Testing fetch Items");
+        console.log(listItems);
+        setItems(listItems);
+
+        setFetchError(null);
+
+      } catch (err) {
+
+        console.log(err.message)
+        setFetchError(err.message);
+      }
+    };
+
+    (() => fetchItems())();
+    
+  }, []);
+
+...
+
+return (
+    <>
+      <div className="App">
+        <Header title="Grocery List" />
+        <AddItem
+          newItem={newItem}
+          setNewItem={setNewItem}
+          handleAdding={handleAdding}
+        />
+        <Search search={search} setSearch={setSearch} />
+       
+        
+        <main>
+
+
+        {fetchError && <p style={{color:"red"}} > {` Error: ${fetchError}`}</p> }
+          
+        { !fetchError && <Content
+          items={items.filter((i) =>
+            i.item.toLowerCase().includes(search.toLowerCase())
+          )}
+          handleChange={handleChange}
+          handleDelete={handleDelete}
+        />}
+        
+        </main>
+        <Footer len={items.length} />
+      </div>
+    </>
+  );
+
+
+   ```
+
 ### Step # 25 
 
 ### Step # 26 
