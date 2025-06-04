@@ -12,13 +12,31 @@
     },
     {
       "id": 3,
-      "checked": false,
+      "checked": true,
       "item": "Bread"
     },
     {
       "id": 4,
       "checked": false,
       "item": "Cookies"
+    }
+    ,
+    {
+      "id": 5,
+      "checked": false,
+      "item": "Bananas"
+    }
+    ,
+    {
+      "id": 6,
+      "checked": true,
+      "item": "Eggs"
+    }
+    ,
+    {
+      "id": 7,
+      "checked": false,
+      "item": "Salt"
     }
   ]
 }

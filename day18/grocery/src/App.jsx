@@ -12,6 +12,9 @@ function App() {
 
   const [search, setSearch] = useState("");
 
+  const [fetchError, setFetchError] = useState(null);
+
+  const API_URI = "http://localhost:3500/items";
 
 /*
 //Example for useEffect structure
@@ -42,14 +45,22 @@ useEffect( ()=> {
       console.log("printing testItems");
 
       try {
-        const response = await fetch("http://localhost:3500/items");
+        const response = await fetch(API_URI);
+
+        if (!response.ok )  throw Error('Did not receive expected data')
+          
         const listItems = await response.json();
 
         console.log("Testing fetch Items");
         console.log(listItems);
         setItems(listItems);
+
+        setFetchError(null);
+
       } catch (err) {
-        console.log(err.stack);
+
+        console.log(err.message)
+        setFetchError(err.message);
       }
     };
 
@@ -131,13 +142,22 @@ useEffect( ()=> {
           handleAdding={handleAdding}
         />
         <Search search={search} setSearch={setSearch} />
-        <Content
+       
+        
+        <main>
+
+
+        {fetchError && <p style={{color:"red"}} > {` Error: ${fetchError}`}</p> }
+          
+        { !fetchError && <Content
           items={items.filter((i) =>
             i.item.toLowerCase().includes(search.toLowerCase())
           )}
           handleChange={handleChange}
           handleDelete={handleDelete}
-        />
+        />}
+        
+        </main>
         <Footer len={items.length} />
       </div>
     </>
