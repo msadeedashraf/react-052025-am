@@ -1114,10 +1114,84 @@ const addNewItem = (item) => {
 
 ```
 
-
 ### Step # 22 
 
+- Create a items.json file in the data folder.
+
+data\items.json
+```
+{
+  "items": [
+    {
+      "id": 1,
+      "checked": false,
+      "item": "Almonds, Unsalted, in the blue bag"
+    },
+    {
+      "id": 2,
+      "checked": false,
+      "item": "Pizza"
+    },
+    {
+      "id": 3,
+      "checked": false,
+      "item": "Bread"
+    },
+    {
+      "id": 4,
+      "checked": false,
+      "item": "Cookies"
+    }
+  ]
+}
+
+```
+
+- To host the json file will use the node package json-server, go to the CLI and run this cmd.
+- Go to this link for more `https://www.npmjs.com/package/json-server`
+
+```
+> npx json-server -p 3500 -w data/items.json
+
+```
+
+- Test this `http://localhost:3500/items` in the browser to see the list of items.
+  
+
+
 ### Step # 23 
+
+- Remove the item initialization from the localstorage `const [items, setItems] = useState([]);`
+- Create a fetchItems method using useEffect to load the items from the items.json file.
+
+```
+
+...
+  const [items, setItems] = useState([]);
+...  
+
+useEffect(() => {
+   // console.log("load data");
+
+    const fetchItems = async () => {
+     // console.log("printing testItems");
+
+      try {
+        const response = await fetch("http://localhost:3500/items");
+        const listItems = await response.json();
+
+        console.log("Testing fetch Items");
+       // console.log(listItems);
+        setItems(listItems);
+      } catch (err) {
+        console.log(err.stack);
+      }
+    };
+
+    (() => fetchItems())();
+    
+  }, []);
+```
 
 ### Step # 24 
 
