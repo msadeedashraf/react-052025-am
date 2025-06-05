@@ -1150,6 +1150,8 @@ data\items.json
 - To host the json file will use the node package json-server, go to the CLI and run this cmd.
 - Go to this link for more `https://www.npmjs.com/package/json-server`
 
+- To start the json server
+data/items.json
 ```
 > npx json-server -p 3500 -w data/items.json
 
@@ -1287,7 +1289,179 @@ return (
 
 ### Step # 25 
 
-### Step # 26 
+    //Introduced timeout to mimic wait time while data being loaded 
+    setTimeout(() => { (() => fetchItems())();}, 5000);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+
+ `finally { setIsLoading(false);}`
+
+
+```
+ useEffect(() => {
+    console.log("load data");
+
+    const fetchItems = async () => {
+      console.log("printing testItems");
+
+      try 
+      {
+        const response = await fetch(API_URI);
+
+        if (!response.ok )  throw Error('Did not receive expected data')
+          
+        const listItems = await response.json();
+
+        console.log("Testing fetch Items");
+        console.log(listItems);
+        setItems(listItems);
+
+        setFetchError(null);
+
+      } catch (err) {
+
+        console.log(err.message)
+        setFetchError(err.message);
+      }
+        finally 
+    {
+      setIsLoading(false);
+      
+    }
+
+
+    };
+```
+
+`{isLoading && <p style={{color:"green"}} > {`Please wait few seconds before the data gets loaded`}</p> }`
+
+```
+return (
+    <>
+      <div className="App">
+        <Header title="Grocery List" />
+        <AddItem
+          newItem={newItem}
+          setNewItem={setNewItem}
+          handleAdding={handleAdding}
+        />
+        <Search search={search} setSearch={setSearch} />
+       
+        
+        <main>
+
+
+        {isLoading && <p style={{color:"green"}} > {`Please wait few seconds before the data gets loaded`}</p> }
+        {fetchError && <p style={{color:"red"}} > {` Error: ${fetchError}`}</p> }
+        { !fetchError  && !isLoading && <Content
+          items={items.filter((i) =>
+            i.item.toLowerCase().includes(search.toLowerCase())
+          )}
+          handleChange={handleChange}
+          handleDelete={handleDelete}
+        />}
+        
+        </main>
+        <Footer len={items.length} />
+      </div>
+    </>
+  );
+```
+### Step # 26
+
+- Explain
+```
+const apiRequest = async ( url = '', optionsObj = null, errMsg = null  ) => {
+
+try
+{
+
+const response = await fetch(url, optionsObj);
+if (!response.ok )  throw Error('Please reload the app');
+      
+}
+catch (err) 
+{
+    errMsg= err.message;
+
+}
+finally
+{
+return errMsg;
+}
+
+}
+export default apiRequest;
+
+```
+- Explain
+
+```
+...
+import apiRequest from  "./apiRequest"
+...
+
+const addNewItem = async (item) => {
+    const id = items.length ?  (parseInt(items[items.length - 1].id)  + 1).toString() : 1;
+    const myNewItem = { id, checked: false, item };
+
+    const listItems = [...items, myNewItem];
+
+    setItems(listItems);
+
+    const postOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(myNewItem)
+    }
+    const result = await apiRequest(API_URI, postOptions);
+    if (result) setFetchError(result);
+  };
+```
+
+- Explain
+```
+  const handleChange = async (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    //console.log()
+    setItems(listItems);
+
+    const myItem = listItems.filter((item) => item.id === id );
+console.log(myItem)
+const updateOptions = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({checked:myItem[0].checked})
+    };
+    const newURL = `${API_URI}/${id}`
+    const result = await apiRequest(newURL, updateOptions);
+    if (result) setFetchError(result);
+
+  };
+
+```
+- Explain
+```
+const handleDelete = async (id) => {
+    //console.log(`Key : ${id}`);
+    const listItems = items.filter((item) => item.id !== id);
+
+    setItems(listItems);
+
+    const deleteOptions = {method:'DELETE'}
+     const newURL = `${API_URI}/${id}`
+    const result = await apiRequest(newURL, deleteOptions);
+    if (result) setFetchError(result);
+  };
+
+```
 ### Step # 27 
 
